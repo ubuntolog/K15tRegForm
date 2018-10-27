@@ -9,17 +9,40 @@
         #parse ("common/header.vm")
         <div class="bannerText">
             <h1>
-                <span>Java Meetup Registration</span>
+                <span>Java Meetup Registration Form</span>
             </h1>
         </div>
         <form>
-            Extend the form and bind the "Submit" button to store the entered information using the REST resource RegistrationResource.
-            The form should support to enter the following information:<br>
-            - Name (required)<br>
-            - Password (required)<br>
-            - Address (required)<br>
-            - Email (required)<br>
-            - Phone number
+            <label for="name">Name:</label>
+            <input
+                type="text"
+                id="name"
+            />* <br />
+
+            <label for="password">Password:</label>
+            <input type="password"
+                id="password" name="password"
+                minlength="8" required
+                placeholder="8 characters minimum"
+            />* <br />
+            <label for="address">Address:</label>
+            <input
+                type="text"
+                id="address"
+            />* <br />
+
+            <label for="email">Email:</label>
+            <input
+                type="text"
+                id="email"
+            />* <br />
+
+            <label for="phone">Phone number:</label>
+            <input
+                type="text"
+                id="phone"
+            /> <br />
+
             <p><input class="btn btn-default" type="submit" value="Submit"></p>
         </form>
         #parse ("common/footer.vm")
