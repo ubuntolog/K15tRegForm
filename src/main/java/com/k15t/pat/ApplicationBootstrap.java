@@ -8,6 +8,7 @@ import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -20,7 +21,6 @@ public class ApplicationBootstrap {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationBootstrap.class, args);
     }
-
 
     @Bean
     public ServletRegistrationBean initJerseyServlet() {
@@ -39,4 +39,8 @@ public class ApplicationBootstrap {
         };
     }
 
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
+    }
 }
