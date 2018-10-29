@@ -37,4 +37,15 @@ public class RegistrationControllerTests {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void registerUserTest() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.post("/user")
+                .param("name", "John Smith")
+                .param("password", "passw0rd")
+                .param("address", "Baker street 221b")
+                .param("email", "john@smith.com")
+                .param("phone", "12345678"))
+                .andExpect(status().isOk());
+    }
+
 }

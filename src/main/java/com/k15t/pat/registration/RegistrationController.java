@@ -26,7 +26,7 @@ public class RegistrationController {
         return new ApiInfo("Registration form API", "1.0", "Alexandr Chernov");
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
     public User registerUser(
             @RequestParam(name="name") @NotBlank(message="Name cannot be empty") String name,
