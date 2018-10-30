@@ -38,15 +38,4 @@ public class RegistrationController {
 
         return new User(name, password, address, email, phone);
     }
-
-    @RequestMapping("/registration.html")
-    public String registration() {
-
-        Template template = velocityEngine.getTemplate("templates/registration.vm");
-        VelocityContext context = new VelocityContext();
-        StringWriter writer = new StringWriter();
-        template.merge(context, writer);
-
-        return writer.toString();
-    }
 }
