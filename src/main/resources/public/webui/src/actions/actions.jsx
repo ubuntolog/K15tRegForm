@@ -35,6 +35,7 @@ function errHandler(msg) {
 export function fetchApiInfo() {
     return function (dispatch, getState) {
         axios.get(apiNames.apiinfo).then(response => {
+            console.log(response.data);
             dispatch({
                 type: actionTypes.APIINFO_FETCH_SUCCESS,
                 apiinfo: response.data
