@@ -7,3 +7,5 @@ lib/
 *.iml
 .vscode/
 .DS_Store
+node_modules/
+k15t-bundle.js

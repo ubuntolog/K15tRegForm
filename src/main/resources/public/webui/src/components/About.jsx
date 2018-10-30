@@ -13,7 +13,7 @@ class About extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     render() {
         
         return (
@@ -30,7 +30,6 @@ class About extends React.Component {
 
 About.propTypes = {
     actions: PropTypes.object.isRequired,
-    treebanks: PropTypes.array.isRequired,
 };
 
 export default About;

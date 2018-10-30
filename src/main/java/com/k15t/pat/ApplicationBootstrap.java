@@ -34,7 +34,7 @@ public class ApplicationBootstrap {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("forward:/registration.html");
+                registry.addViewController("/").setViewName("forward:/webui/app/index.html");
             }
         };
     }

@@ -16,7 +16,7 @@ class Home extends React.Component {
                         <Grid>
                             <Row>
                                 <Col>
-                                   Home page
+                                   Home page1
                                 </Col>
                             </Row>
                         </Grid>

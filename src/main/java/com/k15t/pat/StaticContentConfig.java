@@ -19,9 +19,4 @@ public class StaticContentConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/public/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/webui/app/index.html");
-    }
-
 }

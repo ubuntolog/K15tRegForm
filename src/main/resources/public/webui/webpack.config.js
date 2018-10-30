@@ -27,8 +27,8 @@ module.exports = {
         contentBase: __dirname+"/app",
         historyApiFallback: true,
         proxy: {
-            '/api/**': {
-                target :'http://localhost:8088',
+            '/**': {
+                target :'http://localhost:8080',
                 changeOrigin: true,
                 secure: false
             }

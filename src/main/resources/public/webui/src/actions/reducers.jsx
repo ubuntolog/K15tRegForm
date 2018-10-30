@@ -17,7 +17,10 @@ function apiinfo(state = SI(""), action) {
 
 
 const rootReducer = combineReducers({
-    apiinfo
+    apiinfo,
+
+    form: formReducer,
+    routing: routerReducer
 });
 
 

@@ -54,10 +54,8 @@ class Frame extends React.Component {
 
     render() {
         return (
-          <Grid className="main-grid" id="main-container">
-              { this.inIframe() ? false : <HeaderMenu currentTreebank={this.props.treebankInfo.shortName} /> }
+          <Grid>              
               {this.props.children}
-              { this.inIframe() ? false : <Footer version="beta-2" /> }
           </Grid>
        )
     }

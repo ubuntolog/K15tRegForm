@@ -39,7 +39,6 @@ export function fetchApiInfo() {
                 type: actionTypes.APIINFO_FETCH_SUCCESS,
                 apiinfo: response.data
             });
-            setPrivateTreebankSentenceWindow(response.data.privateTreebankSentenceWindow);
         }).catch(errHandler());
     }
 }
