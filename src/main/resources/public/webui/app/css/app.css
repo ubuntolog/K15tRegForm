@@ -35,3 +35,19 @@ form {
     background-color: #4af;
     display: flex;
 }
+
+.pull-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+.pull-right {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+.centered-text {
+    text-align: center;
+}

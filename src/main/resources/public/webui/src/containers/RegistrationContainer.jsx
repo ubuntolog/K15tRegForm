@@ -1,11 +1,11 @@
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
-import About from '../components/About';
+import Registration from '../components/Registration';
 import * as actions from '../actions/actions';
 
 const mapStateToProps = (state) => {
     return {
-        treebanks: state.treebanks,
+        apiinfo: state.apiinfo
     };
 };
 
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export const AboutContainer = connect(mapStateToProps, mapDispatchToProps)(About);
+export const RegistrationContainer = connect(mapStateToProps, mapDispatchToProps)(Registration);

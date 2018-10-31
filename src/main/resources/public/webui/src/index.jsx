@@ -16,12 +16,13 @@ require('react-s-alert/dist/s-alert-css-effects/slide.css');
 import rootReducers from './actions/reducers';
 import {fetchApiInfo} from './actions/actions';
 
-import {Grid, Row, Col, Button} from 'react-bootstrap';
-import {AboutContainer} from './containers/AboutContainer';
+import {Grid, Row, Col, Button, Navbar, Well, Image} from 'react-bootstrap';
 
-import Home from './components/Home';
+import {RegistrationContainer} from './containers/RegistrationContainer';
 
 import ErrorMessage from './components/ErrorMessage';
+
+require('../app/css/app.css');
 
 
 const devTools = (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
@@ -54,9 +55,27 @@ class Frame extends React.Component {
 
     render() {
         return (
-          <Grid>              
-              {this.props.children}
-          </Grid>
+            <div>
+            <Row>  
+                <Col> 
+                    <Well bsSize="large">
+                        <Row style={{margin:5}}>  
+                            <Col xs={2} sm={2} md={2} lg={2}> 
+                                <Image src="/webui/app/images/logo_k15t.png" responsive />
+                            </Col>    
+                            <Col xs={10} sm={10} md={10} lg={10}>
+                                <h2>User registration form</h2>
+                            </Col>
+                        </Row>
+                    </Well>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="pull-center">
+                    {this.props.children}
+                </Col>
+            </Row>
+            </div>
        )
     }
 }
@@ -72,14 +91,13 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <Provider store={store}>
                 <div>
                     <Router history={history}>
                         <Route path={window.APP_CONTEXT_PATH+'/'} component={Frame}>
-                            <IndexRoute component={Home}/>
-                            <Route path={window.APP_CONTEXT_PATH+'/about'} component={AboutContainer} />
+                            <IndexRoute component={RegistrationContainer}/>
+                        
                             <Route path='*' component={NotFound} />
                         </Route>
                     </Router>

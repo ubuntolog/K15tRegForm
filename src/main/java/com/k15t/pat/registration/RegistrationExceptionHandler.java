@@ -17,7 +17,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @ControllerAdvice
@@ -30,12 +33,22 @@ public class RegistrationExceptionHandler extends ResponseEntityExceptionHandler
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-        List<String> errors = new ArrayList<String>();
+        HashMap<String, List<String>> errors = new HashMap<>();
+//        List<String> currentFieldErrors = new ArrayList<String>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
+
+            List<String> currentFieldErrors = errors.get(error.getField());
+            currentFieldErrors.add(error.getDefaultMessage());
+            errors.put(error.getField(), currentFieldErrors);
+//            errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+
+            List<String> currentFieldErrors = errors.get(error.getObjectName());
+            currentFieldErrors.add(error.getDefaultMessage());
+            errors.put(error.getObjectName(), currentFieldErrors);
+
+//            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
@@ -46,18 +59,35 @@ public class RegistrationExceptionHandler extends ResponseEntityExceptionHandler
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
             MissingServletRequestParameterException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
-        String error = ex.getParameterName() + " parameter is missing";
+//        String error = ex.getParameterName() + " parameter is missing";
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+
+        HashMap<String, List<String>> errors = new HashMap<>();
+        errors.put(ex.getParameterName(),new ArrayList<String>(Arrays.asList("Parameter is missing")));
+
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
-        List<String> errors = new ArrayList<String>();
+
+        HashMap<String, List<String>> errors = new HashMap<>();
+
+
+
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            errors.add(violation.getMessage());
+            List<String> currentFieldErrors = new ArrayList<String>();
+            currentFieldErrors.add(violation.getMessage());
+
+            String field = "";
+            for (Path.Node node : violation.getPropertyPath()) {
+
+                field = node.getName();
+            }
+
+            errors.put( violation.getPropertyPath().toString(), currentFieldErrors);
         }
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
@@ -67,9 +97,13 @@ public class RegistrationExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex, WebRequest request) {
-        String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
+        HashMap<String, List<String>> errors = new HashMap<>();
+        errors.put(ex.getName(),new ArrayList<String>(Arrays.asList("Should be of type" + ex.getRequiredType().getName())));
+
+//        String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
+
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 }

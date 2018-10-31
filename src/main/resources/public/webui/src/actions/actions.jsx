@@ -3,8 +3,6 @@ import Alert from 'react-s-alert';
 import {push} from 'react-router-redux';
 import actionTypes from './actionTypes';
 import {apiNames} from '../constants';
-import {getItemsInTotal} from '../containers/containerUtils';
-import {toPairs, getRange} from '../utils/utils';
 
 function errHandler(msg) {
     return function(err) {
@@ -30,12 +28,9 @@ function errHandler(msg) {
     }
 }
 
-
-
 export function fetchApiInfo() {
     return function (dispatch, getState) {
         axios.get(apiNames.apiinfo).then(response => {
-            console.log(response.data);
             dispatch({
                 type: actionTypes.APIINFO_FETCH_SUCCESS,
                 apiinfo: response.data

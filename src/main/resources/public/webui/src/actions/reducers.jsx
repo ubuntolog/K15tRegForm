@@ -5,7 +5,7 @@ import { reducer as formReducer } from 'redux-form';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 
-function apiinfo(state = SI(""), action) {
+function apiinfo(state = SI({}), action) {
     switch (action.type) {
         case actionTypes.APIINFO_FETCH_SUCCESS:
             return SI(action.apiinfo);

@@ -2,8 +2,6 @@ package com.k15t.pat.registration;
 
 import com.k15t.pat.json.ApiInfo;
 import com.k15t.pat.json.User;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Size;
-import java.io.StringWriter;
 
 
 @RestController
