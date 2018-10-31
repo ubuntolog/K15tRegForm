@@ -1,4 +1,3 @@
-import {sentenceInContextWindowSize, privateTreebankSentenceWindow} from '../constants';
 
 export function keys(o) {
     const a = [];

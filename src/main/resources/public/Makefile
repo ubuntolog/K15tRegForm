@@ -1,5 +1,5 @@
 WEBUI = webui
-JSBUNDLE = webui/app/tk15t-bundle.js
+JSBUNDLE = webui/app/k15t-bundle.js
 
 webui: $(JSBUNDLE)
 
