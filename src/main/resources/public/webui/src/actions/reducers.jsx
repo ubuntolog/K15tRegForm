@@ -14,10 +14,20 @@ function apiinfo(state = SI({}), action) {
     }
 }
 
+function registration(state = SI({}), action) {
+    switch (action.type) {
+        case actionTypes.REGISTRATION_SUBMISSION_SUCCESS:
+            return SI(action.registration);
+        default:
+            return state;
+    }
+}
+
 
 
 const rootReducer = combineReducers({
     apiinfo,
+    registration,
 
     form: formReducer,
     routing: routerReducer

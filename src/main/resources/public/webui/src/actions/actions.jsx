@@ -38,3 +38,34 @@ export function fetchApiInfo() {
         }).catch(errHandler());
     }
 }
+
+function registrationSubmissionSuccess(registration) {
+    return {
+        type: actionTypes.REGISTRATION_SUBMISSION_ERROR,
+        registration: registration
+    }
+}
+
+function registrationSubmissionError(errorMessage) {
+    return {
+        type: actionTypes.REGISTRATION_SUBMISSION_ERROR,
+        errorMessage: errorMessage
+    }
+}
+
+export function submitRegistration(name, password, address, email, phone) {
+    return function (dispatch, getState)  {
+        const fd = new FormData();
+        fd.append("name", name);
+        fd.append("password", password);
+        fd.append("address", address);
+        fd.append("email", email);
+        fd.append("phone", phone);
+        axios.post(apiNames.user, fd).then(response => {
+            dispatch(registrationSubmissionSuccess(response.data));
+        }).catch(err => {
+            errHandler()(err);
+            dispatch(registrationSubmissionError(err));
+        })
+    }
+}

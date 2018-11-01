@@ -22,18 +22,29 @@ class Registration extends React.Component {
         this.setState({ show: true });
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        this.props.actions.submitRegistration(
+                                                data.get("name"),
+                                                data.get("password"),
+                                                data.get("address"),
+                                                data.get("email"),
+                                                data.get("phone")
+                                            );
+    }
+
     render() {
-        console.log(this.props);
         return(
                 <div>
-                    <form>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
                     <FormGroup
                         controlId="nameGroup"
                     >
                         <ControlLabel>Name</ControlLabel>
                         <FormControl
                             type="text"
-                            value=""
+                            
                             placeholder="Enter your name"
                             name="name"                                        
                         />
@@ -45,7 +56,7 @@ class Registration extends React.Component {
                         <ControlLabel>Password</ControlLabel>
                         <FormControl
                             type="password"
-                            value=""
+                            
                             placeholder="Enter your password"
                             name="password"                                        
                         />
@@ -58,7 +69,7 @@ class Registration extends React.Component {
                         <ControlLabel>Address</ControlLabel>
                         <FormControl
                             type="text"
-                            value=""
+                            
                             placeholder="Enter your address"
                             name="address"                                        
                         />
@@ -70,7 +81,7 @@ class Registration extends React.Component {
                         <ControlLabel>Email</ControlLabel>
                         <FormControl
                             type="text"
-                            value=""
+                            
                             placeholder="Enter your email address"
                             name="email"                                        
                         />
@@ -82,7 +93,7 @@ class Registration extends React.Component {
                         <ControlLabel>Phone number</ControlLabel>
                         <FormControl
                             type="text"
-                            value=""
+                           
                             placeholder="Enter your phone number"
                             name="phone"                                        
                         />
@@ -116,7 +127,8 @@ class Registration extends React.Component {
 }
 
 Registration.propTypes = {
-    apiinfo: PropTypes.object.isRequired
+    apiinfo: PropTypes.object.isRequired,
+    registration: PropTypes.object.isRequired
 };
 
 export default Registration;
