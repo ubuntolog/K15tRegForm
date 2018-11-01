@@ -5,9 +5,7 @@ import {Provider, connect} from 'react-redux';
 import {Router, IndexRoute, Route, browserHistory, hashHistory, Link } from 'react-router';
 import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 import {compose, applyMiddleware, createStore} from 'redux';
-import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {LinkContainer} from 'react-router-bootstrap';
 import Alert from 'react-s-alert';
 
 require('react-s-alert/dist/s-alert-default.css');
@@ -64,7 +62,7 @@ class Frame extends React.Component {
                                 <Image src="/webui/app/images/logo_k15t.png" responsive />
                             </Col>    
                             <Col xs={10} sm={10} md={10} lg={10}>
-                                <h2>User registration form</h2>
+                                <h2>Java meetup registration form</h2>
                             </Col>
                         </Row>
                     </Well>
@@ -80,9 +78,6 @@ class Frame extends React.Component {
     }
 }
 Frame = connect(s => s)(Frame);
-
-
-
 
 class App extends React.Component {
     constructor(props) {

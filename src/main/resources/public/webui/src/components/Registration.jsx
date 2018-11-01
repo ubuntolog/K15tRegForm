@@ -6,10 +6,10 @@ const formFields = ["name", "password", "address", "email", "phone"];
 const VisitorsTableRow = ({name, email}) => {
     return (
         <Row style={{marginTop:10}}>
-            <Col xs={2} sm={2} md={2} lg={2} >
+            <Col xs={4} sm={4} md={4} lg={4} >
                 {name}
             </Col>
-            <Col xs={2} sm={2} md={2} lg={2} >
+            <Col xs={4} sm={4} md={4} lg={4} >
                 {email}
             </Col>
         </Row>
@@ -60,7 +60,6 @@ class Registration extends React.Component {
     }
 
     render() {
-        console.log(this.props.registration);
         const registration = (this.props.registration ? this.props.registration : {});
         let validationStatus = {};
         for (let field of formFields) {
@@ -182,10 +181,10 @@ class Registration extends React.Component {
                         </Modal>
                     </Tab>
                     <Tab eventKey={2} title="See who else is comming">
-                        <Grid>
+                        <Grid style={{width:600}}>
                             <Row>
-                                <Col xs={2} sm={2} md={2} lg={2} >Name</Col>
-                                <Col xs={2} sm={2} md={2} lg={2} >Email</Col>
+                                <Col xs={4} sm={4} md={4} lg={4} ><b>Name</b></Col>
+                                <Col xs={4} sm={4} md={4} lg={4} ><b>Email</b></Col>
                             </Row>
                             {  this.props.visitors.map(visitor =>
                                 <VisitorsTableRow
