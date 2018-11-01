@@ -37,6 +37,14 @@ public class RegistrationController {
             @RequestParam(name="phone", required=false, defaultValue="") String phone
         ) {
 
+        List<Visitor> allVisitors = repository.findAll();
+        for (int i = 0; i < allVisitors.size(); i++) {
+            Visitor currentVisitor = allVisitors.get(i);
+            if ((currentVisitor.getName().equals(name)) || (currentVisitor.getEmail().equals(email))) {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
+        }
+        repository.save(new Visitor(name, password, address,email, phone));
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -44,9 +52,6 @@ public class RegistrationController {
     @ResponseBody
     public List<Visitor> getAllVisitors() {
         List<Visitor> allVisitors = repository.findAll();
-
-
-
         return allVisitors;
     }
 }

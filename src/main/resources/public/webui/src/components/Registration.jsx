@@ -31,6 +31,7 @@ class Registration extends React.Component {
 
     handleSelect(key) {
         this.setState({ key });
+        this.props.actions.fetchVisitors();
       }
 
     handleClose() {
@@ -51,6 +52,7 @@ class Registration extends React.Component {
                                                 data.get(formFields[3]),
                                                 data.get(formFields[4])
                                             );
+        this.props.actions.fetchVisitors();
     }
 
     componentDidMount() {
@@ -58,7 +60,7 @@ class Registration extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        console.log(this.props.registration);
         const registration = (this.props.registration ? this.props.registration : {});
         let validationStatus = {};
         for (let field of formFields) {

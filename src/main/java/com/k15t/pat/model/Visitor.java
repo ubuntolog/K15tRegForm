@@ -2,12 +2,13 @@ package com.k15t.pat.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Visitor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String password;
@@ -19,9 +20,8 @@ public class Visitor {
         super();
     }
 
-    public Visitor(Long id, String name, String password, String address, String email, String phone) {
+    public Visitor(String name, String password, String address, String email, String phone) {
         super();
-        this.id = id;
         this.name = name;
         this.password = password;
         this.address = address;
