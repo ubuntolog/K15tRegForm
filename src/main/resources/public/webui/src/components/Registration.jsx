@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Row, Col, FormGroup, ControlLabel, FormControl, Button, Glyphicon, ButtonToolbar, Modal} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, Button, Glyphicon, ButtonToolbar, Modal, HelpBlock} from 'react-bootstrap';
 
+const formFields = ["name", "password", "address", "email", "phone"];
 class Registration extends React.Component {
     constructor(props) {
         super(props);
@@ -26,77 +27,104 @@ class Registration extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target);
         this.props.actions.submitRegistration(
-                                                data.get("name"),
-                                                data.get("password"),
-                                                data.get("address"),
-                                                data.get("email"),
-                                                data.get("phone")
+                                                data.get(formFields[0]),
+                                                data.get(formFields[1]),
+                                                data.get(formFields[2]),
+                                                data.get(formFields[3]),
+                                                data.get(formFields[4])
                                             );
     }
 
     render() {
+        const registration = (this.props.registration ? this.props.registration : {});
+        let validationStatus = {};
+        for (let field of formFields) {
+            validationStatus[field] = {};
+            validationStatus[field]["state"] = null;
+            validationStatus[field]["message"] = "";
+
+            if (registration.errors) {
+                if (registration.errors[field]) {
+                    validationStatus[field]["state"] = "error";
+                    validationStatus[field]["message"] = registration.errors[field].join(". ");
+                }
+            } else {
+                if (Object.keys(registration).length > 0) {
+                    validationStatus[field]["state"] = "success";
+                }
+            }  
+        }
         return(
                 <div>
                     <form onSubmit={this.handleSubmit.bind(this)}>
                     <FormGroup
                         controlId="nameGroup"
+                        validationState={validationStatus[formFields[0]]["state"]}
                     >
                         <ControlLabel>Name</ControlLabel>
                         <FormControl
                             type="text"
-                            
                             placeholder="Enter your name"
-                            name="name"                                        
+                            name={formFields[0]}                                        
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{validationStatus[formFields[0]]["message"]}</HelpBlock>
                     </FormGroup>
 
                     <FormGroup
                         controlId="passwordGroup"
+                        validationState={validationStatus[formFields[1]]["state"]}
                     >
                         <ControlLabel>Password</ControlLabel>
                         <FormControl
-                            type="password"
-                            
+                            type="password" 
                             placeholder="Enter your password"
-                            name="password"                                        
+                            name={formFields[1]}                                        
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{validationStatus[formFields[1]]["message"]}</HelpBlock>
                     </FormGroup>
-
 
                     <FormGroup
                         controlId="addressGroup"
+                        validationState={validationStatus[formFields[2]]["state"]}
                     >
                         <ControlLabel>Address</ControlLabel>
                         <FormControl
                             type="text"
-                            
                             placeholder="Enter your address"
-                            name="address"                                        
+                            name={formFields[2]}                                       
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{validationStatus[formFields[2]]["message"]}</HelpBlock>
                     </FormGroup>
 
                     <FormGroup
                         controlId="emailGroup"
+                        validationState={validationStatus[formFields[3]]["state"]}
                     >
                         <ControlLabel>Email</ControlLabel>
                         <FormControl
                             type="text"
-                            
                             placeholder="Enter your email address"
-                            name="email"                                        
+                            name={formFields[3]}                                        
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{validationStatus[formFields[3]]["message"]}</HelpBlock>
                     </FormGroup>
                     
                     <FormGroup
-                        controlId="phoneG"
+                        controlId="phoneGroup"
+                        validationState={validationStatus[formFields[4]]["state"]}
                     >
                         <ControlLabel>Phone number</ControlLabel>
                         <FormControl
                             type="text"
-                           
                             placeholder="Enter your phone number"
-                            name="phone"                                        
+                            name={formFields[4]}                                       
                         />
+                        <FormControl.Feedback />
+                        <HelpBlock>{validationStatus[formFields[4]]["message"]}</HelpBlock>
                     </FormGroup>
                     <ButtonToolbar>
                         <Button type="submit">Register</Button>

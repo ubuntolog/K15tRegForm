@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Alert from 'react-s-alert';
-import {push} from 'react-router-redux';
 import actionTypes from './actionTypes';
 import {apiNames} from '../constants';
 
@@ -8,8 +7,6 @@ function errHandler(msg) {
     return function(err) {
         const alert = (msg) => {
             Alert.error(msg);
-            console.error(msg);
-            console.log('error: ', err);
         };
         const response = err.response || {};
         if (response.status == 401) {
@@ -20,10 +17,7 @@ function errHandler(msg) {
             alert("The server does not respond (gateway timeout).");
         } else {
             msg = msg || "An error occurred while contacting the server.";
-            if (response.data) {
-                msg += " " + response.data;
-            }
-            alert(msg, response);
+            alert(msg);
         }
     }
 }
@@ -46,10 +40,10 @@ function registrationSubmissionSuccess(registration) {
     }
 }
 
-function registrationSubmissionError(errorMessage) {
+function registrationSubmissionError(registration) {
     return {
         type: actionTypes.REGISTRATION_SUBMISSION_ERROR,
-        errorMessage: errorMessage
+        registration: registration
     }
 }
 
@@ -63,9 +57,10 @@ export function submitRegistration(name, password, address, email, phone) {
         fd.append("phone", phone);
         axios.post(apiNames.user, fd).then(response => {
             dispatch(registrationSubmissionSuccess(response.data));
+            Alert.success("You have successfully registered");            
         }).catch(err => {
-            errHandler()(err);
-            dispatch(registrationSubmissionError(err));
+            errHandler("Please check the form data")(err);
+            dispatch(registrationSubmissionError(err.response.data));
         })
     }
 }

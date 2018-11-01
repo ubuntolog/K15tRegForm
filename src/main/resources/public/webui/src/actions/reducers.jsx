@@ -18,6 +18,8 @@ function registration(state = SI({}), action) {
     switch (action.type) {
         case actionTypes.REGISTRATION_SUBMISSION_SUCCESS:
             return SI(action.registration);
+        case actionTypes.REGISTRATION_SUBMISSION_ERROR:
+            return SI(action.registration);
         default:
             return state;
     }
