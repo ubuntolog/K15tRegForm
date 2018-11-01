@@ -33,6 +33,19 @@ export function fetchApiInfo() {
     }
 }
 
+export function fetchVisitors() {
+    return function (dispatch, getState) {
+        axios.get(apiNames.user).then(response => {
+            dispatch({
+                type: actionTypes.FETCH_VISITORS_SUCCESS,
+                visitors: response.data
+            });
+        }).catch(err => {
+            errHandler("Could not retrieve the list of visitors")(err);
+        });
+    }
+}
+
 function registrationSubmissionSuccess(registration) {
     return {
         type: actionTypes.REGISTRATION_SUBMISSION_ERROR,

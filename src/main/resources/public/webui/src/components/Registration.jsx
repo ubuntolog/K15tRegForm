@@ -35,7 +35,12 @@ class Registration extends React.Component {
                                             );
     }
 
+    componentDidMount() {
+        this.props.actions.fetchVisitors();
+    }
+
     render() {
+        console.log(this.props);
         const registration = (this.props.registration ? this.props.registration : {});
         let validationStatus = {};
         for (let field of formFields) {
@@ -156,7 +161,8 @@ class Registration extends React.Component {
 
 Registration.propTypes = {
     apiinfo: PropTypes.object.isRequired,
-    registration: PropTypes.object.isRequired
+    registration: PropTypes.object.isRequired,
+    visitors: PropTypes.array.isRequired
 };
 
 export default Registration;

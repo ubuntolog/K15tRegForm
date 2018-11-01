@@ -25,11 +25,20 @@ function registration(state = SI({}), action) {
     }
 }
 
+function visitors(state = SI([]), action) {
+    switch (action.type) {
+        case actionTypes.FETCH_VISITORS_SUCCESS:
+            return SI(action.visitors);
+        default:
+            return state;
+    }
+}
 
 
 const rootReducer = combineReducers({
     apiinfo,
     registration,
+    visitors,
 
     form: formReducer,
     routing: routerReducer
