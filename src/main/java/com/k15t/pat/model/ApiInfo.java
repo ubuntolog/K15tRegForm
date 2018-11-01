@@ -1,4 +1,4 @@
-package com.k15t.pat.json;
+package com.k15t.pat.model;
 
 public class ApiInfo {
     private final String name;

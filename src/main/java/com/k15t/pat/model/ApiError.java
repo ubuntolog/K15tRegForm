@@ -1,7 +1,7 @@
-package com.k15t.pat.json;
+package com.k15t.pat.model;
 
 import org.springframework.http.HttpStatus;
-import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.List;
 

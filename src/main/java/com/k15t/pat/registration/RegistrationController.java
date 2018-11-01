@@ -1,18 +1,26 @@
 package com.k15t.pat.registration;
 
-import com.k15t.pat.json.ApiInfo;
+import com.k15t.pat.VisitorRepository;
+import com.k15t.pat.model.ApiInfo;
+import com.k15t.pat.model.Visitor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @RestController
 @Validated
 public class RegistrationController {
+
+    @Autowired
+    VisitorRepository repository;
+
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public ApiInfo getApiInfo() {
@@ -30,5 +38,15 @@ public class RegistrationController {
         ) {
 
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Visitor> getAllVisitors() {
+        List<Visitor> allVisitors = repository.findAll();
+
+
+
+        return allVisitors;
     }
 }

@@ -1,4 +1,4 @@
-package com.k15t.pat.json;
+package com.k15t.pat.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +9,18 @@ public class Visitor {
     @Id
     @GeneratedValue
     private Long id;
-    private final String name;
-    private final String password;
-    private final String address;
-    private final String email;
-    private final String phone;
+    private String name;
+    private String password;
+    private String address;
+    private String email;
+    private String phone;
+
+    public Visitor() {
+        super();
+    }
 
     public Visitor(Long id, String name, String password, String address, String email, String phone) {
+        super();
         this.id = id;
         this.name = name;
         this.password = password;

@@ -1,6 +1,6 @@
 package com.k15t.pat.registration;
 
-import com.k15t.pat.json.ApiError;
+import com.k15t.pat.model.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
