@@ -1,6 +1,7 @@
 package com.k15t.pat.registration;
 
 import com.k15t.pat.VisitorRepository;
+import com.k15t.pat.model.ApiError;
 import com.k15t.pat.model.ApiInfo;
 import com.k15t.pat.model.Visitor;
 import org.hibernate.validator.constraints.Email;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -29,7 +32,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity registerUser(
+    public ResponseEntity<?> registerUser(
             @RequestParam(name="name") @NotBlank(message="Name cannot be empty") String name,
             @RequestParam(name="password") @Size(min=6, message="Password should have at least 6 characters") String password,
             @RequestParam(name="address") @NotBlank(message="Address cannot be empty") String address,
@@ -41,7 +44,20 @@ public class RegistrationController {
         for (int i = 0; i < allVisitors.size(); i++) {
             Visitor currentVisitor = allVisitors.get(i);
             if ((currentVisitor.getName().equals(name)) || (currentVisitor.getEmail().equals(email))) {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                HashMap<String, List<String>> errors = new HashMap<>();
+
+                if (currentVisitor.getName().equals(name)) {
+                    List<String> currentFieldErrors = new ArrayList<>();
+                    currentFieldErrors.add("The visitor with the given name already exists");
+                    errors.put("name", currentFieldErrors);
+                }
+                if (currentVisitor.getEmail().equals(email)) {
+                    List<String> currentFieldErrors = new ArrayList<>();
+                    currentFieldErrors.add("The visitor with the given email address already exists");
+                    errors.put("email", currentFieldErrors);
+                }
+
+                return new ResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, "The visitor with the given name or email address already exists", errors), HttpStatus.BAD_REQUEST);
             }
         }
         repository.save(new Visitor(name, password, address,email, phone));
